@@ -1,243 +1,231 @@
 # URUK
 
-URUK - A Secure File Encryption and Email Sender Program
+Understanding and Using the URUK File Encryption & Decryption Program
 
-Program Summary :
+The URUK program is a lightweight, cross-platform application designed to securely encrypt and decrypt files using advanced cryptographic techniques. Built with Python and Tkinter, URUK offers a user-friendly graphical interface for encrypting files with AES and RSA algorithms, signing them for integrity, and decrypting them with signature verification. This article provides a summary of the program, instructions for running it on various operating systems (Windows, Linux, macOS), and a step-by-step guide on how to use its features.
 
-URUK is a robust, user-friendly application designed for secure file encryption, digital signing, and email transmission, developed by Ali Al-Kazaly, known as "aLi GeNiUs The Hackers." The program, currently at version 1.0.0.0 (2025), provides a comprehensive solution for users who need to protect sensitive data and share it securely via email. Built using Python and the Tkinter library for its graphical user interface (GUI), URUK leverages the cryptography library to implement strong encryption mechanisms, including AES (Advanced Encryption Standard) and RSA (Rivest–Shamir–Adleman) for encryption and digital signatures.
 
-Below is a summary of its key features:
+Program Summary
 
-Key Features
+URUK is a file encryption and decryption tool developed by Ali Al-Kazaly, also known as "aLiGeNiUs The Hackers." The program, version 1.0.0.0 (2025), focuses on providing secure file handling with the following key features:
 
     Password Protection:
-        The program requires a password to access its main interface, ensuring only authorized users can use it.
-        On the first run, users set an initial password (minimum 8 characters), which is encrypted using Fernet symmetric encryption (AES-128 in CBC mode) and stored securely in a password.enc file, with the encryption key in key.key.
-        A "Change Password" option allows users to update the password if they know the old one.
-    File Encryption and Signing:
-        Users can select a file and encrypt it using AES (with selectable key lengths: 128, 192, or 256 bits).
-        The file is digitally signed using RSA (2048-bit key) to ensure integrity and authenticity.
-        Keys (public, private, and AES) are displayed in copyable text boxes and can be saved as files for later use.
-    Email Configuration and Sending:
-        Users can configure an SMTP server (e.g., Gmail with smtp.gmail.com and port 587) to send encrypted files and private keys to recipients.
-        The email section allows users to input a recipient’s email address and send the encrypted file and private key as attachments.
+        URUK uses a password-based authentication system to secure access to its features.
+        Passwords are encrypted using the Fernet symmetric encryption algorithm (part of the cryptography library) and stored in a file (password.enc), with the encryption key saved in key.key.
+        Users must set an initial password (minimum 8 characters) on first use and can change it later.
+    File Encryption:
+        Files are encrypted using AES (Advanced Encryption Standard) with user-selectable key lengths (128, 192, or 256 bits).
+        The AES key is randomly generated and displayed in hexadecimal format for the user to save.
+        Files are also signed using RSA (Rivest-Shamir-Adleman) with a 2048-bit key pair to ensure integrity.
+        Public and private keys are generated during encryption and can be saved as .pem files.
+        The encrypted file includes the initialization vector (IV), encrypted data, and RSA signature, saved with a .enc extension.
     File Decryption:
-        The decryption section allows users to select an encrypted file, load the corresponding private key and AES key, and decrypt the file.
-        The program verifies the digital signature during decryption to ensure the file hasn’t been tampered with.
+        Decryption requires the AES key, private key, and the original file (for signature verification).
+        The program verifies the RSA signature to ensure the file hasn’t been tampered with before decrypting it.
+        Decrypted files are saved with a .dec extension.
     User Interface:
-        The GUI is divided into four resizable sections: Encryption, Email Configuration, Email Sending, and Decryption.
-        An "About" button at the top displays program details:
+        The main window is divided into two sections: Encryption (left) and Decryption (right), using a PanedWindow for resizable panels.
+        An "About" button displays program information, including the app name, developer, and version.
+        The window size dynamically adjusts to 80% of the screen width and 60% of the screen height, ensuring compatibility across different screen resolutions.
+    Cross-Platform Compatibility:
+        URUK is built with Python and Tkinter, making it compatible with Windows, Linux, and macOS.
+        It uses the cryptography library for encryption, which works consistently across all operating systems.
+        File paths are handled using os.path, ensuring proper path separators (\ for Windows, / for Linux/macOS).
 
-        APP : URUK
+The program has been simplified by removing a previous "Folder Compression Section" to eliminate dependencies on external libraries like pyminizip, which caused compatibility issues. Now, URUK focuses solely on encryption and decryption, making it more reliable and easier to use across all platforms.
 
-        DEVELOPER : Ali Al-Kazaly  " aLi GeNiUs The Hackers "
-
-        VERSION : 1.0.0.0  (2025)
-
-    Security:
-        Passwords are encrypted using Fernet, ensuring they are stored securely.
-        File encryption uses AES with a randomly generated key, and RSA ensures secure digital signatures.
-        The program prevents unauthorized access by requiring a correct password to proceed.
 
 How to Run URUK on All Operating Systems
-URUK is written in Python, making it cross-platform. However, to run it on different operating systems (Windows, Linux, macOS), you need to set up the environment and convert the script into an executable for ease of use. Below are the steps to run URUK on all OSes:
+
+URUK can be run on Windows, Linux, and macOS either directly with Python or as a standalone executable created with PyInstaller. Below are the steps to set up and run the program on each OS.
 Prerequisites
 
-    Python: Python 3.6 or higher is required.
-    Dependencies: The program uses the following Python libraries:
-        tkinter (usually included with Python)
-        cryptography
-        smtplib (included with Python for email functionality)
+    Python: Python 3.6 or higher.
+    Dependencies: The cryptography library (Tkinter is included with Python).
 
 Step 1: Install Python and Dependencies
-Windows
 
-    Download and install Python from python.org. Ensure you check "Add Python to PATH" during installation.
-    Open a Command Prompt and install the required library:
-    bash
+    Windows:
+        Download and install Python from python.org. During installation, check "Add Python to PATH."
+        Open Command Prompt and install the required library:
+        bash
 
-    pip install cryptography
+        pip install cryptography
 
-Linux
+    Linux (e.g., Ubuntu):
+        Install Python and pip:
+        bash
 
-    Most Linux distributions come with Python pre-installed. Check your version:
-    bash
+        sudo apt update
+        sudo apt install python3 python3-pip
 
-    python3 --version
+        Install cryptography:
+        bash
 
-    If not installed, install it (e.g., on Ubuntu):
-    bash
+        pip3 install cryptography
 
-    sudo apt update
-    sudo apt install python3 python3-pip
+        Ensure Tkinter is installed:
+        bash
 
-    Install the cryptography library:
-    bash
+        sudo apt install python3-tk
 
-    pip3 install cryptography
+    macOS:
+        Install Python using Homebrew (if not already installed):
+        bash
 
-    Ensure Tkinter is installed (e.g., on Ubuntu):
-    bash
+        brew install python3
 
-    sudo apt install python3-tk
+        Install cryptography:
+        bash
 
-macOS
+        pip3 install cryptography
 
-    macOS typically includes Python, but you may need to install a newer version. Use Homebrew:
-    bash
-
-    brew install python3
-
-    Install the cryptography library:
-    bash
-
-    pip3 install cryptography
-
-    Tkinter should be included with Python on macOS.
+        Tkinter is included with Python on macOS.
 
 Step 2: Save the Code
-Copy the latest version of the URUK code (provided in previous responses) into a file named URUK.py. Ensure you’re using the version with password protection, as it’s the most secure.
-Step 3: Run the Code Directly (For Development)
-You can run the Python script directly if Python is set up:
+
+    Copy the provided code into a file named URUK.py and save it in a directory of your choice.
+
+Step 3: Run the Program Directly (For Development)
 
     Windows/Linux/macOS:
+        Open a terminal or Command Prompt in the directory containing URUK.py.
+        Run the program:
+        bash
+
+        python3 URUK.py
+
+            On Windows, you may use python URUK.py if python3 is not recognized.
+        The program will launch, prompting you to set an initial password if it’s the first run.
+
+Step 4: Create a Standalone Executable (For Easy Use)
+To run URUK without requiring Python on the target system, you can convert it to a standalone executable using PyInstaller.
+
+    Install PyInstaller:
     bash
 
-    python3 URUK.py
+    pip install pyinstaller
 
-    This will launch the program, prompting you to set an initial password (or use an existing one if already set).
+    Windows (Create .exe):
+        Open Command Prompt in the directory containing URUK.py.
+        Run:
+        bash
 
-Step 4: Convert to Executable for All OSes
-To make URUK user-friendly and run without requiring Python, convert it to a standalone executable using PyInstaller.
-Install PyInstaller
-bash
+        pyinstaller --onefile --noconsole URUK.py
 
-pip3 install pyinstaller
+            --onefile: Creates a single executable file.
+            --noconsole: Hides the console window (since it’s a GUI app).
+        Find the executable in the dist folder (dist/URUK.exe).
+        Double-click URUK.exe to run. You may need to allow it through Windows Defender (it might flag it as an unknown app).
+    Linux (Create Binary):
+        Open a terminal in the directory containing URUK.py.
+        Run:
+        bash
 
-Windows (Create .exe)
+        pyinstaller --onefile URUK.py
 
-    Open a Command Prompt in the directory containing URUK.py.
-    Run:
-    bash
+        Find the binary in the dist folder (dist/URUK).
+        Make it executable and run:
+        bash
 
-    pyinstaller --onefile --noconsole URUK.py
+        chmod +x dist/URUK
+        ./dist/URUK
 
-        --onefile: Bundles everything into a single .exe.
-        --noconsole: Hides the console window (since it’s a GUI app).
-    Find the executable in the dist folder (dist/URUK.exe).
-    Double-click URUK.exe to run the program.
+    macOS (Create Binary):
+        Open a terminal in the directory containing URUK.py.
+        Run:
+        bash
 
-Linux (Create Binary)
+        pyinstaller --onefile URUK.py
 
-    Open a terminal in the directory containing URUK.py.
-    Run:
-    bash
+        Find the binary in the dist folder (dist/URUK).
+        Make it executable and run:
+        bash
 
-    pyinstaller --onefile URUK.py
+        chmod +x dist/URUK
+        ./dist/URUK
 
-    Find the binary in the dist folder (dist/URUK).
-    Make it executable and run:
-    bash
+        You may need to allow the app in "Security & Privacy" settings (macOS Gatekeeper might block it initially).
 
-    chmod +x dist/URUK
-    ./dist/URUK
 
-macOS (Create Binary)
-
-    Open a terminal in the directory containing URUK.py.
-    Run:
-    bash
-
-    pyinstaller --onefile URUK.py
-
-    Find the binary in the dist folder (dist/URUK).
-    Make it executable and run:
-    bash
-
-    chmod +x dist/URUK
-    ./dist/URUK
 
 Notes on Executables
 
-    The executable includes all dependencies (Tkinter, cryptography, etc.), so Python doesn’t need to be installed on the target system.
-    On Windows, you may need to allow the .exe through Windows Defender (it might flag it as an unknown app).
-    On macOS, you may need to allow the app in "Security & Privacy" settings (Gatekeeper might block it initially).
-
-Step 5: Cross-Platform Considerations
-
-    Build on Target OS: For best results, build the executable on the target operating system (e.g., build the .exe on Windows). If cross-compiling, tools like Wine (for Windows on Linux) can help.
-    File Permissions: On Linux/macOS, ensure password.enc and key.key have restrictive permissions:
-    bash
-
-    chmod 600 password.enc key.key
-
-    Dependencies: If the executable fails to run due to missing dependencies, ensure all libraries are included by adding --hidden-import flags in PyInstaller (e.g., --hidden-import cryptography).
+    The executable bundles all dependencies (tkinter, cryptography), so Python doesn’t need to be installed on the target system.
+    The program is lightweight and should run smoothly on any modern system.
 
 How to Use URUK
-Initial Setup
+URUK provides a straightforward interface for encrypting and decrypting files securely. Below are the steps to use its features:
+1. Initial Setup and Login
 
-    Run the Program:
-        Launch the executable (URUK.exe on Windows, ./URUK on Linux/macOS) or run the script (python3 URUK.py).
-        On the first run, a "Set Initial Password" window appears.
-    Set Password:
-        Enter a password (minimum 8 characters) and click "Set Password".
-        The password is encrypted and saved, and the login window appears.
-    Login:
-        Enter the password you set and click "Login".
-        If correct, the main application window opens; otherwise, an error appears.
+    First Run:
+        Launch the program (python3 URUK.py or the executable).
+        A "Set Initial Password" window will appear.
+        Enter a password (minimum 8 characters) and click "Set Password."
+    Subsequent Runs:
+        The "Login" window will appear.
+        Enter your password and click "Login."
+        To change the password, enter the current password, click "Change Password," and follow the prompts to set a new password (must match confirmation and be at least 8 characters).
 
-Using the Main Application
-The main window is divided into four sections: Encryption, Email Configuration, Email Sending, and Decryption.
-1. Encryption Section
+2. Main Application Interface
 
-    Select File: Click "Select File to Encrypt" and choose a file.
-    Choose AES Key Length: Select 128, 192, or 256 bits from the dropdown.
-    Encrypt & Sign: Click "Encrypt & Sign File". The file is encrypted with AES and signed with RSA.
-    View Keys: The public key, private key, and AES key are displayed in copyable text boxes.
-    Save Keys: Use the "Save" buttons to save each key as a file (e.g., .pem for RSA keys, .key for AES key).
-    Save Encrypted File: Click "Save Encrypted File" to save the encrypted file (.enc extension).
+    After logging in, the main window opens with two sections:
+        Encryption Section (left): For encrypting files.
+        Decryption Section (right): For decrypting files.
+    An "About" button at the top displays program information.
 
-2. Email Configuration Section
+3. Encrypting a File
 
-    Enter Details:
-        Sender Email: Your email address (e.g., your.email@gmail.com).
-        Sender Password: For Gmail, use an App Password (generate one at Google Account Security under 2-Step Verification > App Passwords).
-        SMTP Server: smtp.gmail.com for Gmail.
-        SMTP Port: 587 for Gmail.
-    Save Config: Click "Save Email Config" to store the settings.
+    In the Encryption Section, click "Select File to Encrypt" to choose a file.
+        The file name will appear below the button.
+    Select an AES key length (128, 192, or 256 bits) from the dropdown menu.
+    Click "Encrypt & Sign File" to encrypt the file with AES and sign it with RSA.
+        The public key, private key, and AES key will be displayed in the text boxes (copyable).
+    Click "Save Public Key," "Save Private Key," and "Save AES Key" to save the keys as .pem and .key files, respectively.
+        These keys are essential for decryption, so store them securely.
+    Click "Save Encrypted File" to save the encrypted file (with a .enc extension).
 
-3. Email Section
+4. Decrypting a File
 
-    Enter Recipient Email: Input the recipient’s email address.
-    Send Email: Click "Send Encrypted File & Key". The encrypted file and private key are attached and sent via email.
-    Confirmation: A success or error message appears based on the email send status.
+    In the Decryption Section, click "Select File to Decrypt" to choose an encrypted .enc file.
+        The file name will appear below the button.
+    Click "Decrypt File."
+    Select the private key (.pem) file when prompted.
+    Select the AES key (.key) file when prompted.
+    Select the original file used for encryption (needed for signature verification).
+        If the signature verification fails, a warning will appear, but decryption will still proceed.
+    Choose a save location for the decrypted file (with a .dec extension).
+        A success message will confirm the file has been decrypted and saved.
 
-4. Decryption Section
+5. Viewing Program Information
 
-    Select File: Click "Select File to Decrypt" and choose the .enc file.
-    Load Keys:
-        Select the private key (.pem file) when prompted.
-        Select the AES key (.key file) when prompted.
-    Select Original File: For signature verification, select the original unencrypted file.
-    Decrypt: Click "Decrypt File". The file is decrypted, and the signature is verified.
-    Save Decrypted File: Choose a location to save the decrypted file (.dec extension).
+    Click the "About" button at the top to display program details:
 
-5. Change Password
+    APP : URUK
 
-    In the login window, enter the current password and click "Change Password".
-    Enter a new password and confirm it. If successful, use the new password to log in.
+    DEVELOPER : Ali Al-Kazaly aLiGeNiUs The Hackers
 
-6. About Information
+    VERSION : 1.0.0.0  (2025)
 
-    Click the "About" button at the top to view program details.
+    The About dialog is a custom window centered on the main application, with an "OK" button to close it.
 
-Security Best Practices
 
-    Backup Keys: Keep backups of password.enc and key.key, as losing them will lock you out of the program.
-    Secure Password: Choose a strong password with letters, numbers, and special characters.
-    Protect Files: Ensure the password.enc and key.key files are not accessible to others (e.g., store them in a secure location or encrypt the directory).
-    Email Security: Use an App Password for email to avoid exposing your main password.
+
+Additional Notes
+
+    Security:
+        URUK uses industry-standard encryption (AES, RSA) and symmetric key encryption (Fernet) for password storage.
+        Always save the AES key, public key, and private key during encryption, as they are required for decryption.
+        Keep the password.enc and key.key files secure, as they store the encrypted password and encryption key.
+    Cross-Platform Compatibility:
+        The program has been tested on Windows, Linux, and macOS and works consistently.
+        File dialogs and path handling are OS-agnostic, ensuring a seamless experience.
+    Troubleshooting:
+        If the program fails to launch, ensure Python and the cryptography library are installed.
+        On Linux, ensure python3-tk is installed if Tkinter is missing.
+        If the executable is blocked, allow it through your OS’s security settings.
 
 Conclusion
-URUK is a powerful tool for securely encrypting files, signing them, and sharing them via email, with a focus on user access control through password protection. Its cross-platform compatibility ensures it can be used on Windows, Linux, and macOS with minimal setup. By following the steps to install dependencies, convert to an executable, and use its intuitive GUI, users can protect sensitive data and communicate securely. Developed by Ali Al-Kazaly "aLi GeNiUs The Hackers," URUK is a testament to practical, secure software design for modern data protection needs.
-For further assistance, refer to the program’s documentation or contact the developer. Happy encrypting!
+URUK is a powerful yet simple tool for securely encrypting and decrypting files, making it ideal for users who need to protect sensitive data. Its cross-platform compatibility, user-friendly interface, and robust cryptographic implementation make it a reliable choice for both beginners and advanced users. By following the setup instructions for your operating system and the usage guide, you can easily encrypt and decrypt files while ensuring their integrity through digital signatures. Whether you're on Windows, Linux, or macOS, URUK provides a consistent and secure experience for managing your files.
+For further enhancements or support, the developer, Ali Al-Kazaly, continues to refine URUK, ensuring it meets user needs while maintaining simplicity and reliability. Happy encrypting! 😊
+
