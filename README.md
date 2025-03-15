@@ -7,7 +7,7 @@ The URUK program is a lightweight, cross-platform application designed to secure
 
 Program Summary
 
-URUK is a file encryption and decryption tool developed by Ali Al-Kazaly, also known as "aLiGeNiUs The Hackers." The program, version 1.0.0.0 (2025), focuses on providing secure file handling with the following key features:
+URUK is a file encryption and decryption tool developed by Ali Al-Kazaly, also known as "aLiGeNiUs The Hackers." The program, version 2.0.0.0 (2025), focuses on providing secure file handling with the following key features:
 
     Password Protection:
         URUK uses a password-based authentication system to secure access to its features.
@@ -32,7 +32,6 @@ URUK is a file encryption and decryption tool developed by Ali Al-Kazaly, also k
         It uses the cryptography library for encryption, which works consistently across all operating systems.
         File paths are handled using os.path, ensuring proper path separators (\ for Windows, / for Linux/macOS).
 
-The program has been simplified by removing a previous "Folder Compression Section" to eliminate dependencies on external libraries like pyminizip, which caused compatibility issues. Now, URUK focuses solely on encryption and decryption, making it more reliable and easier to use across all platforms.
 
 
 How to Run URUK on All Operating Systems
@@ -205,7 +204,7 @@ URUK provides a straightforward interface for encrypting and decrypting files se
 
     DEVELOPER : Ali Al-Kazaly aLiGeNiUs The Hackers
 
-    VERSION : 1.0.0.0  (2025)
+    VERSION : 2.0.0.0  (2025)
 
     The About dialog is a custom window centered on the main application, with an "OK" button to close it.
 
